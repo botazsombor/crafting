@@ -1,11 +1,11 @@
 package hu.elte.CraftingGame.repositories;
 
 import hu.elte.CraftingGame.entities.User;
-
-import javax.transaction.Transactional;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-@Transactional
-public interface UserRepository extends UserBaseRepository<User> {
+@Repository
+public interface UserRepository extends BaseRepository<User>{
     Optional<User> findByUsername(String username);
 }
