@@ -115,3 +115,11 @@ mvnw.cmd
 HELP.md
 mvnw
 .mvn/
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
