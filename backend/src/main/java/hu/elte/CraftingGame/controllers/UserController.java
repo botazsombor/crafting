@@ -5,7 +5,9 @@ import hu.elte.CraftingGame.repositories.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,13 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @GetMapping("")
+    @Secured({ "ROLE_ADMIN" })
+    public ResponseEntity<Iterable<User>> getAll() {
+        Iterable<User> users = userRepository.findAll();
+        return ResponseEntity.ok(users);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<User> post(@RequestBody User user) {
@@ -31,11 +40,6 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(User.Role.ROLE_USER);
         return ResponseEntity.ok(userRepository.save(user));
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User user) {
-        return ResponseEntity.ok().build();
-    }
+    } 
     
 }
