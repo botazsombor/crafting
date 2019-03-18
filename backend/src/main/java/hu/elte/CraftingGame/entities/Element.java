@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "elements")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,10 +20,8 @@ public class Element extends BaseEntity implements Serializable {
     private String elementName;
     
     @Column
-    @NotNull
     private Element firstParent;
 
     @Column
-    @NotNull
     private Element secondParent;
 }

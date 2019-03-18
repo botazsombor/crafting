@@ -8,14 +8,12 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
