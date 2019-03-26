@@ -15,6 +15,7 @@ export class ExploredItemsComponent implements OnInit {
 
    onAddToCrafting(it: Item){
      this.itemService.toCraftTable(it);
+     this.exploredItems = this.itemService.getExploredItems();
    }
 
   ngOnInit() {}
