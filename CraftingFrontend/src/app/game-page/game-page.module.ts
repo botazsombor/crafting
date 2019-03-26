@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { GamePagePage } from './game-page.page';
 import { ExploredItemsComponent } from './explored-items/explored-items.component';
+import { CraftingAreaComponent } from './crafting-area/crafting-area.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [GamePagePage, ExploredItemsComponent]
+  declarations: [GamePagePage, ExploredItemsComponent, CraftingAreaComponent]
 })
 export class GamePagePageModule {}

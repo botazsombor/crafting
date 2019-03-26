@@ -11,7 +11,10 @@ export class ExploredItemsComponent implements OnInit {
   exploredItems: Item[];
   constructor(private itemService: ItemService) {
     this.exploredItems = this.itemService.getExploredItems();
-    console.log(this.itemService.checkMerge(4,0));
+   }
+
+   onAddToCrafting(it: Item){
+     this.itemService.toCraftTable(it);
    }
 
   ngOnInit() {}
