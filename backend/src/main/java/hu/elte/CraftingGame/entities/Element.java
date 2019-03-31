@@ -3,11 +3,13 @@ package hu.elte.CraftingGame.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,8 +22,15 @@ public class Element extends BaseEntity implements Serializable {
     private String elementName;
     
     @Column
-    private Element firstParent;
+    private String firstParent;
 
     @Column
-    private Element secondParent;
+    private String secondParent;
+
+    @ManyToMany
+    @JoinColumn
+    @JsonIgnore
+    private List<User> users;
+    //private User user;
+
 }

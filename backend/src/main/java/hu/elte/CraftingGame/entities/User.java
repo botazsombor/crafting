@@ -8,16 +8,15 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
 public class User extends BaseEntity implements Serializable {
 	
     @Column(nullable = false)
@@ -30,9 +29,9 @@ public class User extends BaseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnore
-//    private List<Element> elements;
+    @ManyToMany(mappedBy = "users")
+    @Nullable
+    private List<Element> elements;
     
     public enum Role {
         ROLE_GUEST, ROLE_USER, ROLE_ADMIN
