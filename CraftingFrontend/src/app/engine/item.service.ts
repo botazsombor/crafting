@@ -1,6 +1,7 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,7 @@ export class ItemService {
 
   itemA: BehaviorSubject<Item>;
   itemB: BehaviorSubject<Item>;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.itemA = new BehaviorSubject<Item>(undefined);
     this.itemB = new BehaviorSubject<Item>(undefined);
   }
@@ -85,8 +86,10 @@ export class ItemService {
         (x.parentA === itemA && x.parentB === itemB) ||
         (x.parentA === itemB && x.parentB === itemA)
     )[0];
-    
-    it? this.exploredItems.push(it) : null;
+
+    it && this.exploredItems.indexOf(it) === -1
+      ? this.exploredItems.push(it)
+      : null;
   }
 
   toCraftTable(it: Item) {
@@ -99,5 +102,22 @@ export class ItemService {
     if (this.itemA.getValue() && this.itemB.getValue()) {
       this.tryMerge(this.itemA.getValue().id, this.itemB.getValue().id);
     }
+  }
+
+  queryData() {
+    const link = 'http://35.205.136.122:8080/api/element/all';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    this.http.get(link)
+    .subscribe(
+        data => { // json data
+            console.log('Success: ', data);
+        },
+        error => {
+            console.log('Error: ', error);
+        });
   }
 }

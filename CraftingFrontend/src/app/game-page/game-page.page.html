@@ -4,15 +4,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <ion-grid >
+<ion-content>
+  <ion-grid style="height: 100%;">
     <ion-row style="height: 100%">
       <ion-col size="8">
-        <app-crafting-area></app-crafting-area>
+        <app-crafting-area
+          style="width: 60%; position: fixed;"
+        ></app-crafting-area>
       </ion-col>
-      <ion-col size="4" style="background-color: grey">
+      <ion-col size="4" style="background-color: grey;">
         <app-explored-items></app-explored-items>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="secondary">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

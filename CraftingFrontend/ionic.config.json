@@ -1,5 +1,7 @@
 {
   "name": "CraftingFrontend",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
