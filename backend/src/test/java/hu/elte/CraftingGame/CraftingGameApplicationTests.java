@@ -1,4 +1,4 @@
-package hu.elte.CraftingGame.CraftingGame;
+package hu.elte.CraftingGame;
 
 import java.util.Optional;
 
@@ -15,7 +15,6 @@ import hu.elte.CraftingGame.entities.Element;
 import hu.elte.CraftingGame.repositories.ElementRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @DataJpaTest
 public class CraftingGameApplicationTests {
 
