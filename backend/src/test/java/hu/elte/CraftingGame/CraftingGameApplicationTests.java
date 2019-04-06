@@ -98,7 +98,7 @@ public class CraftingGameApplicationTests {
         Optional<Element> found = elementRepository.findByElementName(element.getElementName());
         
         // then
-        Assert.assertEquals(found.get(),not(element2));
+        Assert.assertNotEquals(found.get(),element2);
     }
     @Test
     public void whenFindNotByFirstParentAndSecondParent_thenReturnElement() {
@@ -110,7 +110,7 @@ public class CraftingGameApplicationTests {
         
         Optional<Element> found = elementRepository.findByFirstParentAndSecondParent("firstparent", "secondparent");
         
-        Assert.assertEquals(found.get(), not(element2));
+        Assert.assertNotEquals(found.get(), element2);
     }
     @Test
     public void whenNotFindByUsername_thenReturnUser() {
@@ -121,6 +121,6 @@ public class CraftingGameApplicationTests {
         
         Optional<User> found = userRepository.findByUsername("username");
         
-        Assert.assertEquals(found.get(), not(user2));
+        Assert.assertNotEquals(found.get(), user2);
     }
 }
