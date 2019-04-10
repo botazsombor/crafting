@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ElementRepository extends CrudRepository<Element, Integer> {
     public Optional<Element> findByElementName(String elementName);
-    public Iterable<Element> findAllByFirstParentAndSecondParent(String firstParent, String secondParent);
-    public Optional<Element> findByFirstParentAndSecondParent(String firstParent, String secondParent);
+    public Iterable<Element> findAllByFirstParentAndSecondParent(Integer firstParent, Integer secondParent);
+    public Optional<Element> findByFirstParentAndSecondParent(Integer firstParent, Integer secondParent);
 }

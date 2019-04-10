@@ -35,7 +35,7 @@ public class CraftingGameApplicationTests {
     public void whenFindByName_thenReturnElement() {
         // given
     	
-        Element element = new Element("child","firstparent","secondparent", null);
+        Element element = new Element("child",1,2, null);
         entityManager.persist(element);
         entityManager.flush();
      
@@ -48,30 +48,34 @@ public class CraftingGameApplicationTests {
     
     @Test
     public void whenFindByFirstParentAndSecondParent_thenReturnElement() {
-    	Element element = new Element("child","firstparent","secondparent", null);
+    	Element element = new Element("child",2,3, null); //2-3 mert az 1-2-nek már van gyereke, ezért nem egy optionalelem lesz a result hanem egy iterable és ez hiba
         entityManager.persist(element);
         entityManager.flush();
-        
-        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent("firstparent", "secondparent");
-        
+
+        //dupla csekk meg a fordított verziónál is! így írtuk meg nincs mese!
+        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent(2, 3);
+        if(!found.isPresent()) {
+            found = elementRepository.findByFirstParentAndSecondParent(3, 2);
+        }
+
         Assert.assertEquals(found.get(), element);
     }
     
     
-    //still failure
-    /*@Test
+
+    @Test
     public void whenFindBySecondParentAndFirstParent_thenReturnElement() {
-    	Element element = new Element("child","firstparent","secondparent", null);
+    	Element element = new Element("child",2,3, null);
         entityManager.persist(element);
         entityManager.flush();
         
-        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent("secondparent", "firstparent");
-        if(found.get()==null) {
-        	found = elementRepository.findByFirstParentAndSecondParent("secondparent", "firstparent");
+        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent(2, 3);
+        if(!found.isPresent()) {
+            found = elementRepository.findByFirstParentAndSecondParent(3, 2);
         }
         
-        Assert.assertEquals(found.get(), null);
-    }*/
+        Assert.assertEquals(found.get(), element);
+    }
     
     @Test
     public void whenFindByUsername_thenReturnUser() {
@@ -88,8 +92,8 @@ public class CraftingGameApplicationTests {
     public void whenNotFindByName_thenReturnElement() {
         // given
     	
-        Element element = new Element("child","firstparent","secondparent", null);
-        Element element2 = new Element("child2","firstparent2","secondparent2", null);
+        Element element = new Element("child",1,2, null);
+        Element element2 = new Element("child2",3,4, null);
         entityManager.persist(element);
         entityManager.persist(element2);
         entityManager.flush();
@@ -102,13 +106,13 @@ public class CraftingGameApplicationTests {
     }
     @Test
     public void whenFindNotByFirstParentAndSecondParent_thenReturnElement() {
-    	Element element = new Element("child","firstparent","secondparent", null);
-    	Element element2 = new Element("child","firstparent2","secondparent2", null);
+    	Element element = new Element("child",2,3, null);
+    	Element element2 = new Element("child",3,4, null);
         entityManager.persist(element);
         entityManager.persist(element2);
         entityManager.flush();
-        
-        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent("firstparent", "secondparent");
+
+        Optional<Element> found = elementRepository.findByFirstParentAndSecondParent(1, 2);
         
         Assert.assertNotEquals(found.get(), element2);
     }

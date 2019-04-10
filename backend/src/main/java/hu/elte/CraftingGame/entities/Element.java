@@ -22,15 +22,15 @@ public class Element extends BaseEntity implements Serializable {
     private String elementName;
     
     @Column
-    private String firstParent;
+    private Integer firstParent;
 
     @Column
-    private String secondParent;
+    private Integer secondParent;
 
     @ManyToMany
     @JoinColumn
     @JsonIgnore
     private List<User> users;
-    //private User user;
+
 
 }

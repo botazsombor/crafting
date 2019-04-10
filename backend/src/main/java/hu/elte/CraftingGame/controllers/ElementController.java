@@ -32,9 +32,9 @@ public class ElementController {
 
     @GetMapping("/fusion")
     public ResponseEntity<Optional<Element>> fusion(@RequestBody List<Element> reqElements) {
-        Optional<Element> optionalElement = elementRepository.findByFirstParentAndSecondParent(reqElements.get(0).getElementName(),reqElements.get(1).getElementName());
+        Optional<Element> optionalElement = elementRepository.findByFirstParentAndSecondParent(reqElements.get(0).getId(),reqElements.get(1).getId());
         if(!optionalElement.isPresent()) {
-            optionalElement = elementRepository.findByFirstParentAndSecondParent(reqElements.get(1).getElementName(),reqElements.get(0).getElementName());
+            optionalElement = elementRepository.findByFirstParentAndSecondParent(reqElements.get(1).getId(),reqElements.get(2).getId());
             if(!optionalElement.isPresent()) {
                 return ResponseEntity.notFound().build();
             }
