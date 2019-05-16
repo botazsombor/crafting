@@ -27,6 +27,9 @@ public class Element extends BaseEntity implements Serializable {
     @Column
     private Integer secondParent;
 
+    @Column( length = 100000 )
+    private String base64Icon;
+
     @ManyToMany
     @JoinColumn
     @JsonIgnore

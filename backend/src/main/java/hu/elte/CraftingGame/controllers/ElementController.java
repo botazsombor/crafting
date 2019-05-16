@@ -1,12 +1,9 @@
 package hu.elte.CraftingGame.controllers;
 
 import hu.elte.CraftingGame.entities.Element;
-import hu.elte.CraftingGame.entities.User;
 import hu.elte.CraftingGame.repositories.ElementRepository;
-import hu.elte.CraftingGame.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -35,7 +35,7 @@ public class CraftingGameApplicationTests {
     public void whenFindByName_thenReturnElement() {
         // given
     	
-        Element element = new Element("child",1,2, null);
+        Element element = new Element("child",1,2, null,null);
         entityManager.persist(element);
         entityManager.flush();
      
@@ -48,7 +48,7 @@ public class CraftingGameApplicationTests {
     
     @Test
     public void whenFindByFirstParentAndSecondParent_thenReturnElement() {
-    	Element element = new Element("child",2,3, null); //2-3 mert az 1-2-nek már van gyereke, ezért nem egy optionalelem lesz a result hanem egy iterable és ez hiba
+    	Element element = new Element("child",2,3, null,null); //2-3 mert az 1-2-nek már van gyereke, ezért nem egy optionalelem lesz a result hanem egy iterable és ez hiba
         entityManager.persist(element);
         entityManager.flush();
 
@@ -65,7 +65,7 @@ public class CraftingGameApplicationTests {
 
     @Test
     public void whenFindBySecondParentAndFirstParent_thenReturnElement() {
-    	Element element = new Element("child",2,3, null);
+    	Element element = new Element("child",2,3, null,null);
         entityManager.persist(element);
         entityManager.flush();
         
@@ -92,8 +92,8 @@ public class CraftingGameApplicationTests {
     public void whenNotFindByName_thenReturnElement() {
         // given
     	
-        Element element = new Element("child",1,2, null);
-        Element element2 = new Element("child2",3,4, null);
+        Element element = new Element("child",1,2, null,null);
+        Element element2 = new Element("child2",3,4, null,null);
         entityManager.persist(element);
         entityManager.persist(element2);
         entityManager.flush();
@@ -106,8 +106,8 @@ public class CraftingGameApplicationTests {
     }
     @Test
     public void whenFindNotByFirstParentAndSecondParent_thenReturnElement() {
-    	Element element = new Element("child",2,3, null);
-    	Element element2 = new Element("child",3,4, null);
+    	Element element = new Element("child",2,3, null,null);
+    	Element element2 = new Element("child",3,4, null,null);
         entityManager.persist(element);
         entityManager.persist(element2);
         entityManager.flush();
