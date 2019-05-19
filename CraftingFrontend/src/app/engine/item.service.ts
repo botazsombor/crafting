@@ -30,7 +30,10 @@ export class ItemService {
     console.log(bd);
     this.http.post(link, { headers: this.hd, body: bd}).subscribe(
       data => {
-        this.exploredItems.next(this.exploredItems.value.push(data));
+        const d = data as Item;
+        const dat = this.exploredItems.value;
+        dat.push(d);
+        this.exploredItems.next(dat);
       },
       error => {
         console.log('Error: ', error);
