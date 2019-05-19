@@ -1,0 +1,8 @@
+<ion-grid>
+  <ion-row *ngFor="let item of exploredItems">
+    <ion-col size="12">
+      <ion-item (click)="onAddToCrafting(item)">{{item.elementName}}</ion-item>
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
