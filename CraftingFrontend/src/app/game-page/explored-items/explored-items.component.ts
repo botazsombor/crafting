@@ -10,12 +10,14 @@ import { Item } from 'src/app/engine/item.model';
 export class ExploredItemsComponent implements OnInit {
   exploredItems: Item[];
   constructor(private itemService: ItemService) {
-    this.exploredItems = this.itemService.getExploredItems();
+    itemService.exploredItems.asObservable().subscribe(
+      expI => this.exploredItems = expI
+    );
    }
 
    onAddToCrafting(it: Item){
      this.itemService.toCraftTable(it);
-     this.exploredItems = this.itemService.getExploredItems();
+     //this.itemService.queryData();
    }
 
   ngOnInit() {}

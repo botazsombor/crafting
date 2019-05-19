@@ -2,12 +2,12 @@
   <ion-row>
     <ion-col size="6">
       <ion-item text-center color='primary' (click)="onRemoveItem(0)">
-        <div *ngIf="itemA" >{{ this.itemA.name }}</div>
+        <div *ngIf="itemA" >{{ this.itemA.elementName }}</div>
       </ion-item>
     </ion-col>
     <ion-col size="6" >
       <ion-item text-center color='primary' (click)="onRemoveItem(1)">
-          <div *ngIf="itemB" >{{ this.itemB.name }}</div>
+          <div *ngIf="itemB" >{{ this.itemB.elementName }}</div>
       </ion-item>
     </ion-col>
   </ion-row>

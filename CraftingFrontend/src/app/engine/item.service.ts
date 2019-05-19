@@ -1,95 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  private items: Item[] = [
-    {
-      id: 0,
-      name: 'water',
-      parentA: null,
-      parentB: null,
-      imgUrl: ''
-    },
-    {
-      id: 1,
-      name: 'dirt',
-      parentA: null,
-      parentB: null,
-      imgUrl: ''
-    },
-    {
-      id: 2,
-      name: 'mud',
-      parentA: 0,
-      parentB: 1,
-      imgUrl: ''
-    },
-    {
-      id: 3,
-      name: 'fire',
-      parentA: 1,
-      parentB: 2,
-      imgUrl: ''
-    },
-    {
-      id: 4,
-      name: 'brick',
-      parentA: 3,
-      parentB: 2,
-      imgUrl: ''
-    },
-    {
-      id: 5,
-      name: 'house',
-      parentA: 4,
-      parentB: 4,
-      imgUrl: ''
-    }
-  ];
+  private hd : HttpHeaders;
 
-  private exploredItems: Item[] = [
-    {
-      id: 0,
-      name: 'water',
-      parentA: null,
-      parentB: null,
-      imgUrl: ''
-    },
-    {
-      id: 1,
-      name: 'dirt',
-      parentA: null,
-      parentB: null,
-      imgUrl: ''
-    }
-  ];
+  exploredItems: BehaviorSubject<Item[]>;
+
+  expI: Item[] = [];
 
   itemA: BehaviorSubject<Item>;
   itemB: BehaviorSubject<Item>;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.hd = authService.getHeader();
     this.itemA = new BehaviorSubject<Item>(undefined);
     this.itemB = new BehaviorSubject<Item>(undefined);
+    this.exploredItems = new BehaviorSubject<Item[]>(undefined);
+    this.queryData();
   }
 
-  getExploredItems() {
-    return [...this.exploredItems];
-  }
-
-  tryMerge(itemA: number, itemB: number) {
-    const it = this.items.filter(
-      x =>
-        (x.parentA === itemA && x.parentB === itemB) ||
-        (x.parentA === itemB && x.parentB === itemA)
-    )[0];
-
-    it && this.exploredItems.indexOf(it) === -1
-      ? this.exploredItems.push(it)
-      : null;
+  tryMerge(itemA: Item, itemB: Item) {
+    const link = 'http://35.205.82.160:8080/api/element/fusion';
+   const bd = [itemA, itemB];
+    console.log(bd);
+    this.http.post(link, { headers: this.hd, body: bd}).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log('Error: ', error);
+      }
+    );
   }
 
   toCraftTable(it: Item) {
@@ -100,24 +46,30 @@ export class ItemService {
     }
 
     if (this.itemA.getValue() && this.itemB.getValue()) {
-      this.tryMerge(this.itemA.getValue().id, this.itemB.getValue().id);
+      this.tryMerge(this.itemA.getValue(), this.itemB.getValue());
     }
   }
 
   queryData() {
-    const link = 'http://35.205.136.122:8080/api/element/all';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*'
-      })
-    };
-    this.http.get(link)
-    .subscribe(
-        data => { // json data
-            console.log('Success: ', data);
-        },
-        error => {
-            console.log('Error: ', error);
-        });
+    const link = 'http://35.205.82.160:8080/api/user/elements';
+
+    this.http.get(link, { headers: this.hd }).subscribe(
+      data => {
+        // json data
+        this.expI = data as Item[];
+        this.exploredItems.next(this.expI);
+      },
+      error => {
+        console.log('Error: ', error);
+      }
+    );
   }
 }
+
+/*
+
+/api/user/elements -- A bejelentkezett user elemeit adja vissza listaként
+- /api/user/insertelement -- A bejelentkezett user elemei közé szúr be egy újat RequestBody : Element
+- /api/element/basic -- Visszaadja egy listában az összes basic element (aminek nincsenek szülői / firstParent = null és secondParent = null)
+- /api/element/all -- Visszaadja egy listában az összes elemet
+- /api/element/fusion  -- Megvizsgálja, hogy két elemnek van-e gyerekeleme, ha van akkor azzal tér vissza, ha nincs akkor notfound().buld() Requestbody: JSONArray két elemmel, sorrend nemszámít*/

@@ -1,7 +1,7 @@
 export interface Item {
-    name: String;
+    elementName: String;
     id: number;
-    parentA: number;
-    parentB: number;
+    firstParent: number;
+    secondParent: number;
     imgUrl: string;
 }

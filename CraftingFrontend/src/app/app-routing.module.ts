@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'game-page', pathMatch: 'full' },
-  { path: 'game-page', loadChildren: './game-page/game-page.module#GamePagePageModule' },
-  { path: 'add-element-page', loadChildren: './add-element-page/add-element-page.module#AddElementPagePageModule' },
+  { path: '', redirectTo: 'login-page', pathMatch: 'full' },
+  { path:'game-page', loadChildren: './game-page/game-page.module#GamePagePageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
 ];
 
 @NgModule({
