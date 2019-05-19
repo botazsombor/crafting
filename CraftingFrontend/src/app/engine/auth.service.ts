@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(name: String, pwd: String) {
-    const link = 'http://35.205.82.160:8080/api/user/elements';
+    const link = 'http://localhost:9000/api/user/elements';
     this.hd = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
