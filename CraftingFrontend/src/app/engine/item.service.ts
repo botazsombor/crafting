@@ -26,7 +26,7 @@ export class ItemService {
 
   tryMerge(itemA: Item, itemB: Item) {
     const link = 'http://35.205.82.160:8080/api/element/fusion';
-   const bd = [itemA, itemB];
+    const bd = [itemA, itemB];
     console.log(bd);
     this.http.post(link, { headers: this.hd, body: bd}).subscribe(
       data => {
